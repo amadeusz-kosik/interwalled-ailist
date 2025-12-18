@@ -3,10 +3,10 @@ package me.kosik.interwalled.ailist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AIList implements Serializable {
+public class AIList<T> implements Serializable {
 
     // All intervals
-    private final ArrayList<Interval> intervals;
+    private final ArrayList<Interval<T>> intervals;
 
     // Number of components (sub lists of intervals).
     private final int componentsCount;
@@ -21,7 +21,7 @@ public class AIList implements Serializable {
     private final ArrayList<Long> componentsMaxEnds;
 
     AIList(
-            final ArrayList<Interval> intervals,
+            final ArrayList<Interval<T>> intervals,
             final int componentsCount,
             final ArrayList<Integer> componentsLengths,
             final ArrayList<Integer> componentsStartIndexes,
@@ -34,8 +34,8 @@ public class AIList implements Serializable {
         this.componentsMaxEnds = componentsMaxEnds;
     }
 
-    public AIListIterator overlapping(Interval interval) {
-        return new AIListIterator(interval.from(), interval.to(), this);
+    public <U> AIListIterator<T> overlapping(Interval<U> interval) {
+        return new AIListIterator<>(interval.from(), interval.to(), this);
     }
 
     /* OverlapIterator interface. */
@@ -68,11 +68,11 @@ public class AIList implements Serializable {
         return componentsCount;
     }
 
-    Interval getInterval(final int index) {
+    Interval<T> getInterval(final int index) {
         return intervals.get(index);
     }
 
-    ArrayList<Interval> getIntervals() {
+    ArrayList<Interval<T>> getIntervals() {
         return intervals;
     }
 
@@ -90,7 +90,7 @@ public class AIList implements Serializable {
 
             for(int intervalIndex = 0; intervalIndex < componentsLengths.get(componentIndex); ++ intervalIndex) {
                 int intervalRealIndex = componentsStartIndexes.get(componentIndex) + intervalIndex;
-                Interval interval = intervals.get(intervalRealIndex);
+                Interval<T> interval = intervals.get(intervalRealIndex);
 
                 sb.append("<");
                 sb.append(interval.from());

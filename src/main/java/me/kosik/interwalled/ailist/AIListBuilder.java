@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class AIListBuilder implements Serializable {
+public class AIListBuilder<T> implements Serializable {
 
     private final AIListConfig config;
-    private final ArrayList<Interval> intervals = new ArrayList<>();
+    private final ArrayList<Interval<T>> intervals = new ArrayList<>();
 
     public AIListBuilder(final AIListConfig config) {
         this.config = config;
     }
 
-    public AIList build() {
+    public AIList<T> build() {
         intervals.sort(Comparator.comparingLong(Interval::from));
 
         int componentsCount = 0;
@@ -43,10 +43,10 @@ public class AIListBuilder implements Serializable {
                 int currentComponentStartIndex = lastAssignedIndex + 1;
                 int currentComponentLength = 0;
 
-                ArrayList<Interval> extractedIntervals = new ArrayList<>();
+                ArrayList<Interval<T>> extractedIntervals = new ArrayList<>();
 
                 for(int currentIntervalIndex = currentComponentStartIndex; currentIntervalIndex < intervals.size(); ) {
-                    final Interval currentInterval = intervals.get(currentIntervalIndex);
+                    final Interval<T> currentInterval = intervals.get(currentIntervalIndex);
                     int coverage = 0;
 
                     // Count interval's coverage: how many further intervals are "covered" by the current one's length.
@@ -114,7 +114,7 @@ public class AIListBuilder implements Serializable {
             }
         }
 
-        return new AIList(
+        return new AIList<>(
             intervals,
             componentsCount,
             componentsLengths,
@@ -123,7 +123,7 @@ public class AIListBuilder implements Serializable {
         );
     }
 
-    public void put(final Interval interval) {
+    public void put(final Interval<T> interval) {
         intervals.add(interval);
     }
 }

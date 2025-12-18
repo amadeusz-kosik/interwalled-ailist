@@ -3,20 +3,20 @@ package me.kosik.interwalled.ailist;
 import me.kosik.interwalled.ailist.utils.BinarySearch;
 import java.util.Iterator;
 
-public class AIListIterator implements Iterator<Interval>
+public class AIListIterator<T> implements Iterator<Interval<T>>
 {
     private final long queryStart;
     private final long queryEnd;
 
-    private final AIList parentAIList;
+    private final AIList<T> parentAIList;
     private final long parentAIListComponentsCount;
 
     private int currentComponentIndex = -1;
     private int currentIntervalIndex = -1;
 
-    private Interval currentInterval;
+    private Interval<T> currentInterval;
 
-    public AIListIterator(final long queryStart, final long queryEnd, final AIList parentAIList)
+    public AIListIterator(final long queryStart, final long queryEnd, final AIList<T> parentAIList)
     {
         this.queryStart = queryStart;
         this.queryEnd = queryEnd;
@@ -32,8 +32,8 @@ public class AIListIterator implements Iterator<Interval>
     }
 
     @Override
-    public Interval next() {
-        Interval currentReturn = currentInterval;
+    public Interval<T> next() {
+        Interval<T> currentReturn = currentInterval;
 
         if(currentInterval != null)
             findNextInterval();
@@ -102,7 +102,7 @@ public class AIListIterator implements Iterator<Interval>
         //  In fact, try picking _previous_ interval, as the algorithm goes from right to left.
         //  Do not go beyond the current component
         int _nextIntervalIndex = currentIntervalIndex - 1;
-        Interval _nextInterval = null;
+        Interval<T> _nextInterval = null;
 
         // Iterate from right to left
         while(_nextIntervalIndex >= currentComponentStartIndex) {

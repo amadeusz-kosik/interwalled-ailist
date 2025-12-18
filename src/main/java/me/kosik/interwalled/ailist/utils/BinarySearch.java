@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class BinarySearch {
 
-    public static  int findRightmost(
-            final ArrayList<Interval> intervals,
+    public static <T> int findRightmost(
+            final ArrayList<Interval<T>> intervals,
             final int leftBound,
             final int rightBound,
             final long queryEnd
