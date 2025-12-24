@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
+    <option name="deprecationWarnings" value="true" />
+    <option name="uncheckedWarnings" value="true" />
+    <option name="featureWarnings" value="true" />
     <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="ailist,ailist.main,ailist.test,interwalled-ailist_7964,interwalled-ailist_7964.main,interwalled-ailist_7964.test,root,root.ailist,root.ailist.main,root.ailist.test,root.main,root.test" />
+    <profile name="sbt 1" modules="ailist-project,ailist-project.ailist,ailist-project.ailist-benchmark,ailist-project.ailist-benchmark.main,ailist-project.ailist-benchmark.test,ailist-project.ailist.main,ailist-project.ailist.test" />
+    <profile name="sbt 2" modules="ailist-project.main,ailist-project.test">
+      <parameters>
+        <parameter value="-target:17" />
+      </parameters>
+    </profile>
   </component>
 </project>

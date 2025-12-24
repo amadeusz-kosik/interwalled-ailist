@@ -1,15 +1,17 @@
 package me.kosik.interwalled.ailist;
 
+import me.kosik.interwalled.ailist.data.AIListConfiguration;
+import me.kosik.interwalled.ailist.data.Interval;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class AIListBuilder<T> implements Serializable {
 
-    private final AIListConfig config;
+    private final AIListConfiguration config;
     private final ArrayList<Interval<T>> intervals = new ArrayList<>();
 
-    public AIListBuilder(final AIListConfig config) {
+    public AIListBuilder(final AIListConfiguration config) {
         this.config = config;
     }
 

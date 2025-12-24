@@ -1,5 +1,6 @@
 package me.kosik.interwalled.ailist;
 
+import me.kosik.interwalled.ailist.data.Interval;
 import java.io.Serializable;
 import java.util.ArrayList;
 

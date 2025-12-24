@@ -1,16 +1,17 @@
 package me.kosik.interwalled
 
+import me.kosik.interwalled.ailist.data.{AIListConfiguration, Interval}
 import org.scalatest.Assertion
 import org.scalatest.matchers.should.Matchers
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 
 package object ailist {
 
   object AIListTestHelper extends Matchers {
 
-    def buildList[T](intervals: Seq[Interval[T]], aiListConfig: AIListConfig = AIListConfig.DEFAULT): AIList[T] = {
+    def buildList[T](intervals: Seq[Interval[T]], aiListConfig: AIListConfiguration = AIListConfiguration.DEFAULT): AIList[T] = {
       val listBuilder = new AIListBuilder[T](aiListConfig)
 
       intervals.foreach(interval => listBuilder.put(interval))

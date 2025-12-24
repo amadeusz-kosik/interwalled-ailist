@@ -1,7 +1,6 @@
 package me.kosik.interwalled.ailist.utils;
 
-import me.kosik.interwalled.ailist.Interval;
-
+import me.kosik.interwalled.ailist.data.Interval;
 import java.util.ArrayList;
 
 

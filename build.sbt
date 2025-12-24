@@ -1,11 +1,18 @@
-ThisBuild / scalaVersion := "2.12.20"
-
+ThisBuild / scalaVersion := "2.13.18"
 ThisBuild / organization := "me.kosik.interwalled"
+
+Compile / javacOptions ++= Seq("--release", "17")
+Compile / scalacOptions += "-target:17"
 
 val aiList = (project in file("ailist"))
   .settings(name := "ailist")
 
+val benchmark = (project in file("benchmark"))
+  .settings(name := "ailist-benchmark")
+  .dependsOn(aiList)
+
 val root = (project in file("."))
+  .settings(name := "ailist-project")
   .aggregate(aiList)
 
 

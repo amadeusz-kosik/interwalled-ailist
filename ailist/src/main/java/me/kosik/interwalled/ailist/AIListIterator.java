@@ -1,5 +1,6 @@
 package me.kosik.interwalled.ailist;
 
+import me.kosik.interwalled.ailist.data.Interval;
 import me.kosik.interwalled.ailist.utils.BinarySearch;
 import java.util.Iterator;
 
