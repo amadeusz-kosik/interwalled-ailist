@@ -7,10 +7,10 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="E:\Code\Projects\interwalled\interwalled-ailist" />
-            <option value="E:\Code\Projects\interwalled\interwalled-ailist\ailist" />
-            <option value="E:\Code\Projects\interwalled\interwalled-ailist\benchmark" />
-            <option value="E:\Code\Projects\interwalled\interwalled-ailist\project" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$\ailist" />
+            <option value="$PROJECT_DIR$\benchmark" />
+            <option value="$PROJECT_DIR$\project" />
           </set>
         </option>
         <option name="sbtVersion" value="1.11.7" />
