@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ScalaCompilerConfiguration">
-    <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="ailist,ailist.main,ailist.test,interwalled-ailist_7964,interwalled-ailist_7964.main,interwalled-ailist_7964.test" />
-  </component>
-</project>
