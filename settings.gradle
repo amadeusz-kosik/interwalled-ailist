@@ -1,0 +1,4 @@
+rootProject.name = 'ailist-bundle'
+
+include 'ailist-benchmark'
+include 'ailist-library'
