@@ -6,12 +6,9 @@ public class Intervals<T> {
 
     final private Interval<T>[] intervals;
 
-    public Intervals(final Interval<T>[] intervals) {
-        this.intervals = intervals;
-    }
-
+    @SuppressWarnings("unchecked")
     public Intervals(final ArrayList<Interval<T>> intervals) {
-        this.intervals = intervals.toArray(new Interval[0]);
+        this.intervals = intervals.toArray((Interval<T> []) new Interval[0]);
     }
 
     public Interval<T> get(int index) {
