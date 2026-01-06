@@ -148,12 +148,14 @@ ListDataStructure.benchmarkQuery              128000   consecutiveIntervals     
 ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                32000     queryDense  avgt   20  1.804 ±  0.019   s/op
 ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                64000    querySparse  avgt   20  3.286 ±  0.033   s/op
 ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                64000     queryDense  avgt   20  6.131 ±  0.049   s/op
+
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                16000    querySparse  avgt   20  0.387 ±  0.004   s/op
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                16000     queryDense  avgt   20  0.678 ±  0.014   s/op
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                32000    querySparse  avgt   20  1.078 ±  0.010   s/op
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                32000     queryDense  avgt   20  1.884 ±  0.022   s/op
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                64000    querySparse  avgt   20  5.772 ±  0.045   s/op
 ListDataStructure.benchmarkQuery              128000   overlappingIntervals                64000     queryDense  avgt   20  6.146 ±  0.056   s/op
+
 ListDataStructure.benchmarkQuery              128000       lastingIntervals                16000    querySparse  avgt   20  0.004 ±  0.001   s/op
 ListDataStructure.benchmarkQuery              128000       lastingIntervals                16000     queryDense  avgt   20  0.005 ±  0.001   s/op
 ListDataStructure.benchmarkQuery              128000       lastingIntervals                32000    querySparse  avgt   20  0.006 ±  0.001   s/op
@@ -194,4 +196,64 @@ ListDataStructure.benchmarkQuery              128000        mixed4Intervals     
 ListDataStructure.benchmarkQuery              128000        mixed4Intervals                32000     queryDense  avgt   20  1.837 ±  0.067   s/op
 ListDataStructure.benchmarkQuery              128000        mixed4Intervals                64000    querySparse  avgt   20  4.813 ±  0.063   s/op
 ListDataStructure.benchmarkQuery              128000        mixed4Intervals                64000     queryDense  avgt   20  5.051 ±  0.056   s/op
+```
+
+Alternative memory management
+```
+Benchmark                         (dataRowsCountStr)           (dataSource)  (queryRowsCountStr)  (querySource)  Mode  Cnt   Score    Error  Units
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                16000    querySparse  avgt   20   0.418 ±  0.005   s/op
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                16000     queryDense  avgt   20   0.415 ±  0.005   s/op
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                32000    querySparse  avgt   20   1.152 ±  0.013   s/op
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                32000     queryDense  avgt   20   2.054 ±  0.032   s/op
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                64000    querySparse  avgt   20   4.535 ±  0.248   s/op
+ListDataStructure.benchmarkQuery              128000   consecutiveIntervals                64000     queryDense  avgt   20   6.545 ±  0.093   s/op
+
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                16000    querySparse  avgt   20   0.417 ±  0.006   s/op
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                16000     queryDense  avgt   20   0.735 ±  0.009   s/op
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                32000    querySparse  avgt   20   1.145 ±  0.010   s/op
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                32000     queryDense  avgt   20   2.123 ±  0.013   s/op
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                64000    querySparse  avgt   20   6.257 ±  0.304   s/op
+ListDataStructure.benchmarkQuery              128000   overlappingIntervals                64000     queryDense  avgt   20   6.549 ±  0.084   s/op
+
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                16000    querySparse  avgt   20   0.004 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                16000     queryDense  avgt   20   0.005 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                32000    querySparse  avgt   20   0.005 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                32000     queryDense  avgt   20   0.006 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                64000    querySparse  avgt   20   0.012 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000       lastingIntervals                64000     queryDense  avgt   20   0.012 ±  0.001   s/op
+
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                16000    querySparse  avgt   20   0.044 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                16000     queryDense  avgt   20   0.027 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                32000    querySparse  avgt   20   0.169 ±  0.002   s/op
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                32000     queryDense  avgt   20   0.089 ±  0.001   s/op
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                64000    querySparse  avgt   20   0.543 ±  0.002   s/op
+ListDataStructure.benchmarkQuery              128000  shortPoissonIntervals                64000     queryDense  avgt   20   0.616 ±  0.009   s/op
+
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                16000    querySparse  avgt   20   0.307 ±  0.006   s/op
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                16000     queryDense  avgt   20   0.194 ±  0.002   s/op
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                32000    querySparse  avgt   20   0.557 ±  0.005   s/op
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                32000     queryDense  avgt   20   0.555 ±  0.002   s/op
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                64000    querySparse  avgt   20   1.825 ±  0.017   s/op
+ListDataStructure.benchmarkQuery              128000        mixed1Intervals                64000     queryDense  avgt   20   1.801 ±  0.021   s/op
+
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                16000    querySparse  avgt   20   0.510 ±  0.003   s/op
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                16000     queryDense  avgt   20   0.551 ±  0.010   s/op
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                32000    querySparse  avgt   20   1.595 ±  0.015   s/op
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                32000     queryDense  avgt   20   1.621 ±  0.027   s/op
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                64000    querySparse  avgt   20   5.216 ±  0.144   s/op
+ListDataStructure.benchmarkQuery              128000        mixed2Intervals                64000     queryDense  avgt   20   5.214 ±  0.047   s/op
+
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                16000    querySparse  avgt   20   0.671 ±  0.012   s/op
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                16000     queryDense  avgt   20   0.879 ±  0.020   s/op
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                32000    querySparse  avgt   20   2.349 ±  0.029   s/op
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                32000     queryDense  avgt   20   2.426 ±  0.022   s/op
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                64000    querySparse  avgt   20   6.387 ±  0.122   s/op
+ListDataStructure.benchmarkQuery              128000        mixed3Intervals                64000     queryDense  avgt   20   7.953 ±  0.047   s/op
+
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                16000    querySparse  avgt   20   0.977 ±  0.024   s/op
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                16000     queryDense  avgt   20   1.071 ±  0.039   s/op
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                32000    querySparse  avgt   20   2.824 ±  0.092   s/op
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                32000     queryDense  avgt   20   3.014 ±  0.146   s/op
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                64000    querySparse  avgt   20   7.836 ±  0.564   s/op
+ListDataStructure.benchmarkQuery              128000        mixed4Intervals                64000     queryDense  avgt   20   9.780 ±  0.789   s/op
 ```

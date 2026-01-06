@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class ListDataStructure {
 
-
     @Param({
             "128000",
             "256000",

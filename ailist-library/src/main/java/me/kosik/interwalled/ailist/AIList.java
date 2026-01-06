@@ -26,16 +26,16 @@ public class AIList<T> implements Serializable {
 
     AIList(
             final Intervals<T> intervals,
-            final int componentsCount,
-            final List<Integer> componentsLengths,
-            final List<Integer> componentsStartIndexes,
-            final List<Long>    componentsMaxEnds)
+            final int       componentsCount,
+            final int[]     componentsLengths,
+            final int[]     componentsStartIndexes,
+            final long[]    componentsMaxEnds)
     {
         this.intervals              = intervals;
         this.componentsCount        = componentsCount;
-        this.componentsLengths      = componentsLengths     .stream().mapToInt(Integer::valueOf).toArray();
-        this.componentsStartIndexes = componentsStartIndexes.stream().mapToInt(Integer::valueOf).toArray();
-        this.componentsMaxEnds      = componentsMaxEnds     .stream().mapToLong(Long::valueOf).toArray();
+        this.componentsLengths      = componentsLengths;
+        this.componentsStartIndexes = componentsStartIndexes;
+        this.componentsMaxEnds      = componentsMaxEnds;
     }
 
     public <U> AIListIterator<T> overlapping(Interval<U> interval) {
@@ -58,8 +58,8 @@ public class AIList<T> implements Serializable {
 
     long getComponentMaxEnd(final int componentIndex) {
         int componentStartIndex = getComponentStartIndex(componentIndex);
-        int componentLength = getComponentLength(componentIndex);
-        int componentEndIndex = componentStartIndex + componentLength - 1;
+        int componentLength     = getComponentLength(componentIndex);
+        int componentEndIndex   = componentStartIndex + componentLength - 1;
 
         return componentsMaxEnds[componentEndIndex];
     }

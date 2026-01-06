@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class AIListBuilder<T> implements Serializable {
 
     private final AIListConfiguration config;
-    private final ArrayList<Interval<T>> intervals;
+    private ArrayList<Interval<T>> intervals;
 
     public AIListBuilder(final AIListConfiguration config) {
         this.config    = config;
@@ -31,7 +31,6 @@ public class AIListBuilder<T> implements Serializable {
         int componentsCount = 0;
         ArrayList<Integer> componentsLengths = new ArrayList<>();
         ArrayList<Integer> componentsStartIndexes = new ArrayList<>();
-        ArrayList<Long> componentsMaxEnds = new ArrayList<>();
 
         if (intervals.size() <= config.minimumComponentSize() || config.maximumComponentsCount() == 1) {
             // Edge case: at start of the algorithm assign everything to a single component.
@@ -113,24 +112,26 @@ public class AIListBuilder<T> implements Serializable {
             }
         }
 
+        long[] componentsMaxEnds = new long[intervals.size()];
+
         for (int i = 0; i < componentsCount; i ++) {
             final int componentStart = componentsStartIndexes.get(i);
-            final int componentEnd   = componentStart + componentsLengths.get(i);
+            final int componentEnd   = componentStart + componentsLengths.get(i) - 1;
 
             long maxEnd = intervals.get(componentStart).to();
-            componentsMaxEnds.add(maxEnd);
+            componentsMaxEnds[componentStart] = maxEnd;
 
-            for (int j = componentStart + 1; j < componentEnd; j ++) {
+            for (int j = componentStart + 1; j <= componentEnd; j ++) {
                 maxEnd = Math.max(intervals.get(j).to(), maxEnd);
-                componentsMaxEnds.add(maxEnd);
+                componentsMaxEnds[j] = maxEnd;
             }
         }
 
         return new AIList<>(
             new Intervals<T>(intervals),
             componentsCount,
-            componentsLengths,
-            componentsStartIndexes,
+            componentsLengths.stream().mapToInt(Integer::valueOf).toArray(),
+            componentsStartIndexes.stream().mapToInt(Integer::valueOf).toArray(),
             componentsMaxEnds
         );
     }

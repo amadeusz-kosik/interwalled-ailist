@@ -31,8 +31,10 @@ public class ListBuilder {
         final List<IntervalsPair<T, U>> result = new ArrayList<>();
 
         for (final Interval<U> rhsInterval : rhs) {
-            for (AIListIterator<T> it = lhs.overlapping(rhsInterval); it.hasNext(); ) {
-                Interval<T> lhsInterval = it.next();
+            AIListIterator<T> resultsIterator = lhs.overlapping(rhsInterval);
+
+            while (resultsIterator.hasNext()) {
+                Interval<T> lhsInterval = resultsIterator.next();
                 result.add(IntervalsPair.fromIntervals(lhsInterval, rhsInterval));
             }
         }
