@@ -20,8 +20,12 @@ public class DataGenerator {
         return intervals(rowsCount, 2, 1, new ArrayList<>(rowsCount));
     }
 
+    public static ArrayList<Interval<String>> wide(final int rowsCount) {
+        return intervals(rowsCount, 256, 0, new ArrayList<>(rowsCount));
+    }
+
     public static ArrayList<Interval<String>> lasting(final int rowsCount) {
-        return intervals(rowsCount, 768 * 2, 768, new ArrayList<>(rowsCount));
+        return intervals(rowsCount, 16, 16, new ArrayList<>(rowsCount));
     }
 
     public static ArrayList<Interval<String>> mixed(final int rowsCount, final int layers) {
@@ -29,8 +33,8 @@ public class DataGenerator {
 
         ArrayList<Interval<String>> output = new ArrayList<>(rowsCount * layers);
 
-        for (int i = 0; i < layers; i++) {
-            intervals(rowsCount, 4 + i, 0, output);
+        for (int i = 1; i <= layers; i++) {
+            intervals(rowsCount, 4 * i, 0, output);
         }
 
         return output;
@@ -43,7 +47,7 @@ public class DataGenerator {
 
     public static ArrayList<Interval<String>> queryDense(final int rowsCount, final int databaseRowsCount) {
         ArrayList<Interval<String>> output = new ArrayList<>(rowsCount);
-        return intervals(rowsCount, databaseRowsCount / rowsCount, 500, output);
+        return intervals(rowsCount, databaseRowsCount / rowsCount, 512, output);
     }
 
     private static ArrayList<Interval<String>> intervals(final int rowsCount, final int width, final int overlap, final ArrayList<Interval<String>> output) {
@@ -52,8 +56,8 @@ public class DataGenerator {
         assert overlap   >= 0;
 
         for(int i = 0; i < rowsCount; i++) {
-            final long from = (long) i * (width + 1) -     overlap;
-            final long to   = (long) i * (width + 2) - 1 + overlap;
+            final long from = (long) i * width - (overlap / 2);
+            final long to   = (long) from + width - 1 + overlap;
 
             output.add(new Interval<>(DEFAULT_KEY, from, to, String.valueOf(i)));
         }

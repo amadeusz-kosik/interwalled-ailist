@@ -1,12 +1,12 @@
-package me.kosik.interwalled.ailist;
+package me.kosik.interwalled.ailist.overrides.initial;
 
 import me.kosik.interwalled.ailist.data.AIListConfiguration;
 import me.kosik.interwalled.ailist.data.Interval;
 import me.kosik.interwalled.ailist.data.IntervalComparator;
-import me.kosik.interwalled.ailist.data.Intervals;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 
 public class AIListBuilder<T> implements Serializable {
 
@@ -31,6 +31,7 @@ public class AIListBuilder<T> implements Serializable {
         int componentsCount = 0;
         ArrayList<Integer> componentsLengths = new ArrayList<>();
         ArrayList<Integer> componentsStartIndexes = new ArrayList<>();
+        ArrayList<Long> componentsMaxEnds = new ArrayList<>();
 
         if (intervals.size() <= config.minimumComponentSize() || config.maximumComponentsCount() == 1) {
             // Edge case: at start of the algorithm assign everything to a single component.
@@ -112,27 +113,25 @@ public class AIListBuilder<T> implements Serializable {
             }
         }
 
-        long[] componentsMaxEnds = new long[intervals.size()];
-
         for (int i = 0; i < componentsCount; i ++) {
             final int componentStart = componentsStartIndexes.get(i);
-            final int componentEnd   = componentStart + componentsLengths.get(i) - 1;
+            final int componentEnd   = componentStart + componentsLengths.get(i);
 
             long maxEnd = intervals.get(componentStart).to();
-            componentsMaxEnds[componentStart] = maxEnd;
+            componentsMaxEnds.add(maxEnd);
 
-            for (int j = componentStart + 1; j <= componentEnd; j ++) {
+            for (int j = componentStart + 1; j < componentEnd; j ++) {
                 maxEnd = Math.max(intervals.get(j).to(), maxEnd);
-                componentsMaxEnds[j] = maxEnd;
+                componentsMaxEnds.add(maxEnd);
             }
         }
 
         return new AIList<>(
-            new Intervals<T>(intervals),
-            componentsCount,
-            componentsLengths.stream().mapToInt(Integer::valueOf).toArray(),
-            componentsStartIndexes.stream().mapToInt(Integer::valueOf).toArray(),
-            componentsMaxEnds
+                intervals,
+                componentsCount,
+                componentsLengths,
+                componentsStartIndexes,
+                componentsMaxEnds
         );
     }
 

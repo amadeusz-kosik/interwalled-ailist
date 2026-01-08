@@ -1,8 +1,5 @@
 package me.kosik.interwalled.ailist.benchmark;
 
-import me.kosik.interwalled.ailist.AIList;
-import me.kosik.interwalled.ailist.AIListBuilder;
-import me.kosik.interwalled.ailist.AIListIterator;
 import me.kosik.interwalled.ailist.data.AIListConfiguration;
 import me.kosik.interwalled.ailist.data.Interval;
 import org.openjdk.jmh.annotations.*;
@@ -77,16 +74,45 @@ public class ListDataStructure {
     }
 
     @Benchmark
-    public void benchmarkQuery(final Blackhole blackhole) {
-        AIListBuilder<String> aiListBuilder =
-                new AIListBuilder<>(AIListConfiguration.DEFAULT, dataSources.get(dataSource));
-        AIList<String> aiList = aiListBuilder.build();
+    public void benchmarkNativeArray(final Blackhole blackhole) {
+        me.kosik.interwalled.ailist.overrides.array.AIListBuilder<String> aiListBuilder =
+                new me.kosik.interwalled.ailist.overrides.array.AIListBuilder<>(AIListConfiguration.DEFAULT, dataSources.get(dataSource));
+        me.kosik.interwalled.ailist.overrides.array.AIList<String> aiList = aiListBuilder.build();
 
         for(Interval<String> interval: querySources.get(querySource)) {
-            for (AIListIterator<String> it = aiList.overlapping(interval); it.hasNext(); ) {
+            for (me.kosik.interwalled.ailist.overrides.array.AIListIterator<String> it = aiList.overlapping(interval); it.hasNext(); ) {
                 Interval<String> dbInterval = it.next();
                 blackhole.consume(dbInterval);
             }
         }
+    }
+
+    @Benchmark
+    public void benchmarkArrayList(final Blackhole blackhole) {
+        me.kosik.interwalled.ailist.overrides.initial.AIListBuilder<String> aiListBuilder =
+                new me.kosik.interwalled.ailist.overrides.initial.AIListBuilder<>(AIListConfiguration.DEFAULT, dataSources.get(dataSource));
+        me.kosik.interwalled.ailist.overrides.initial.AIList<String> aiList = aiListBuilder.build();
+
+        for(Interval<String> interval: querySources.get(querySource)) {
+            for (me.kosik.interwalled.ailist.overrides.initial.AIListIterator<String> it = aiList.overlapping(interval); it.hasNext(); ) {
+                Interval<String> dbInterval = it.next();
+                blackhole.consume(dbInterval);
+            }
+        }
+    }
+
+    @Benchmark
+    public void benchmarkInPlaceList(final Blackhole blackhole) {
+        throw new RuntimeException("Not implemented yet.");
+//        me.kosik.interwalled.ailist.overrides.initial.AIListBuilder<String> aiListBuilder =
+//                new me.kosik.interwalled.ailist.overrides.initial.AIListBuilder<>(AIListConfiguration.DEFAULT, dataSources.get(dataSource));
+//        me.kosik.interwalled.ailist.overrides.initial.AIList<String> aiList = aiListBuilder.build();
+//
+//        for(Interval<String> interval: querySources.get(querySource)) {
+//            for (me.kosik.interwalled.ailist.overrides.initial.AIListIterator<String> it = aiList.overlapping(interval); it.hasNext(); ) {
+//                Interval<String> dbInterval = it.next();
+//                blackhole.consume(dbInterval);
+//            }
+//        }
     }
 }
