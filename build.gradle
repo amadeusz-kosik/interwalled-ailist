@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'net.researchgate.release' version '3.1.0'
 }
 
 group = 'me.kosik.interwalled.ailist'
@@ -17,4 +18,15 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+release {
+    tagTemplate = 'v${version}'
+
+    git {
+        requireBranch.set('master')
+        pushToRemote.set('github')
+        signTag.set(true)
+    }
+
 }
